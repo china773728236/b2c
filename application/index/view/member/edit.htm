@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html><head>
+        <meta charset="utf-8">
+    <title>b2c商城</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+    
+</head>
+<body>
+    <!-- 头部 -->
+    {include file="public/top" /}
+
+    <!-- /头部 -->
+    
+    <div class="main-container container-fluid">
+        <div class="page-container">
+                        <!-- Page Sidebar -->
+            {include file="public/left" /}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                                        <li>
+                        <a href="{:url('index/index')}">系统</a>
+                    </li>
+                                        <li>
+                        <a href="{:url('member/lst')}">会员级别管理</a>
+                    </li>
+                                        <li class="active">添加级别</li>
+                                        </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-header bordered-bottom bordered-blue">
+                <span class="widget-caption">修改会员级别</span>
+            </div>
+            <div class="widget-body">
+                <div id="horizontal-form">
+                    <form class="form-horizontal"  action="{:url('member/edit')}" method="post" >
+                        <input type="hidden" name="id" value="{$mem_edit.id}">
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">会员级别</label>
+                            <div class="col-sm-6">
+                               <select name="lv_name" >
+                                  
+                                
+                                    <option {if condition="$mem_edit.lv_name ==1"} selected="selected"  {/if}  value="1">
+                                        
+                                                     
+                                    注册会员
+                                </option>
+                                 <option {if condition="$mem_edit.lv_name ==2"} selected="selected" {/if} value="2">
+                                        
+                                                     
+                                    白金会员
+                                </option>
+                                 <option {if condition="$mem_edit.lv_name ==3"} selected="selected" {/if} value="3">
+                                        
+                                                     
+                                    钻石会员
+                                </option>
+                                
+                                </select>
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+                         <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">积分上限</label>
+                            <div class="col-sm-6">
+                                <input class="form-control"  placeholder="" name="lv_up_limit" value="{$mem_edit.lv_up_limit}" type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+                         <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">积分下限</label>
+                            <div class="col-sm-6">
+                                <input class="form-control"  placeholder="" name="lv_down_limit" value="{$mem_edit.lv_down_limit}" type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+                         <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">折扣率</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" style="width: 50px;" placeholder="" name="lv_sale" value="{$mem_edit.lv_sale}" type="text">折
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+                     
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">保存信息</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+        </div>  
+    </div>
+
+        <!--Basic Scripts-->
+    <script src="__ADMIN__/style/jquery_002.js"></script>
+    <script src="__ADMIN__/style/bootstrap.js"></script>
+    <script src="__ADMIN__/style/jquery.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__ADMIN__/style/beyond.js"></script>
+    
+
+
+</body></html>

@@ -1,0 +1,607 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>b2c商城</title>
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+     <style type="text/css">
+        .price{
+            width: 150px;
+            display: inline-block;
+        }
+
+        .goods_img{
+
+        }
+
+.file_img{
+
+        }
+
+        .hidd{
+
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- 头部 -->
+    {include file="public/top" /}
+    <!-- /头部 -->
+    <div class="main-container container-fluid">
+        <div class="page-container">
+            <!-- Page Sidebar -->
+            {include file="public/left" /}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="{:url('index/index')}">系统</a>
+                        </li>
+                        <li>
+                            <a href="{:url('goods/lst')}">商品管理</a>
+                        </li>
+                        <li class="active">修改商品</li>
+                    </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+                <!-- Page Body -->
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-xs-12">
+                            <div class="widget">
+                                <div class="widget-header bordered-bottom bordered-blue">
+                                    <span class="widget-caption">修改商品</span>
+                                </div>
+                                <div class="widget-body">
+                                    <div id="horizontal-form">
+                                        <form class="form-horizontal" action="{:url('goods/edit')}" method="post" enctype="multipart/form-data">
+                                            <input class="hidd" type="hidden" name="goods_id" value="{$goods_edit.goods_id}">
+                                            <div class="tabbable">
+                                                <ul class="nav nav-tabs  tabs-flat">
+                                                    <li class="active "><a data-toggle="tab" href="#FlatTab-1">商品设置</a></li>
+                                                    <li class=""><a data-toggle="tab" href="#FlatTab-2">会员级别</a></li>
+                                                    <li class=""><a data-toggle="tab" href="#FlatTab-3">商品属性</a></li>
+                                                      <li class=""><a data-toggle="tab" href="#FlatTab-4">商品相册</a></li>
+                                                </ul>
+                                                <div class="tab-content  tabs-flat">
+                                                    <div class="active tab-pane" id="FlatTab-1">
+                                                        <div class="form-group">
+                                                            <label for="username" class="col-sm-2 control-label no-padding-right">商品名</label>
+                                                            <div class="col-sm-6">
+                                                                <input class="form-control" placeholder="" name="goods_name" type="text" value="{$goods_edit.goods_name}">
+                                                            </div>
+                                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                                        </div>
+                                                         <div class="form-group">
+                                                            <label for="username" class="col-sm-2 control-label no-padding-right">所属分类</label>
+                                                            <div class="col-sm-6">
+                                                                <select name="goods_cat_id" id="cat" >
+                                   {volist name="goods_cat_lst" id="lst"}
+                                
+                                    <option {if condition="$goods_edit['goods_cat_id'] eq $lst['id']"} selected="selected" {/if}  value="{$lst.id}">
+                                         <!-- 
+                                                            为了能更清晰的显示出层次感，我们让每一个文章类型有不同的显示方法，家谱中的老祖中是0，所以前面没有'-' 
+                                                        -->
+                                                        {php}echo str_repeat('--',$lst['level']);{/php}
+                                    {$lst.name}
+                                </option>
+                                 {/volist}
+                                
+                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div id="brand_list">
+                                                        <div class="form-group">
+                                                            <label for="username" class="col-sm-2 control-label no-padding-right">所属品牌</label>
+                                                            <div class="col-sm-6">
+                                                                <select name="brand_id" >
+                                   {volist name="brand_lst" id="lst"}
+                                
+                                    <option {if condition="$goods_edit['brand_id'] eq $lst['brand_id']"} selected="selected" {/if}  value="{$lst.brand_id}">
+                                        
+                                    {$lst.brand_name}
+                                </option>
+                                 {/volist}
+                                
+                                </select>
+                                                            </div>
+                                                        </div>
+                                                         <div id="brand_list" >
+                                                     <!-- 修改商品品牌 -->
+                                                        </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="username" class="col-sm-2 control-label no-padding-right">商品编号</label>
+                                                            <div class="col-sm-6">
+                                                                <input class="form-control" placeholder="" name="goods_sn" type="text" value="{$goods_edit.goods_sn}">
+                                                            </div>
+                                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                                        </div>
+                                                      
+                                                        <div class="form-group">
+                                                            <label for="username" class="col-sm-2 control-label no-padding-right">市场价</label>
+                                                            <div class="col-sm-6">
+                                                                <input class="form-control" placeholder="" name="shop_mk_price" type="text" value="{$goods_edit.shop_mk_price}">
+                                                            </div>
+                                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="username" class="col-sm-2 control-label no-padding-right">本店价</label>
+                                                            <div class="col-sm-6">
+                                                                <input class="form-control" placeholder="" name="shop_price" type="text" value="{$goods_edit.shop_price}">
+                                                            </div>
+                                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="username" class="col-sm-2 control-label no-padding-right">商品描述</label>
+                                                            <div class="col-sm-6">
+                                                                <textarea class="form-control" name="goods_desc">{$goods_edit.goods_desc}</textarea>
+                                                            </div>
+                                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                                        </div>
+                                                      
+                                                       
+                                                        <div class="form-group">
+                                                            <label for="username" class="col-sm-2 control-label no-padding-right">是否精品</label>
+                                                            <div class="col-sm-6">
+                                                             <div class="control-group">
+                            <div class="radio"><label><input 
+                             {if condition="$goods_edit.is_best ==1"}
+                                checked="checked" 
+                                {/if}
+                              name="is_best" type="radio" value="1"><span class="text">是</span></label></div>
+                            <div class="radio"><label><input
+ {if condition="$goods_edit.is_best ==2"}
+                                checked="checked" 
+                                {/if}
+                             class="inverted" name="is_best" type="radio" value="2"><span class="text">否</span></label></div>
+                        </div>
+                    </div>
+                                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="username" class="col-sm-2 control-label no-padding-right">是否是新品</label>
+                                                            <div class="col-sm-6">
+                                                                <div class="control-group">
+                            <div class="radio"><label><input
+  {if condition="$goods_edit.is_new ==1"}
+                                checked="checked" 
+                                {/if}
+                              name="is_new" type="radio" value="1"><span class="text">单选</span></label></div>
+                            <div class="radio"><label><input
+{if condition="$goods_edit.is_new ==2"}
+                                checked="checked" 
+                                {/if}
+                             class="inverted" name="is_new" type="radio" value="2"><span class="text">唯一</span></label></div>
+                        </div>
+                                                            </div>
+                                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="username" class="col-sm-2 control-label no-padding-right">是否上架</label>
+                                                            <div class="col-sm-6">
+                                                                 <div class="control-group">
+                            <div class="radio"><label><input 
+{if condition="$goods_edit.is_hot ==1"}
+                                checked="checked" 
+                                {/if}
+                             name="is_putaway" type="radio" value="1"><span class="text">是</span></label></div>
+                            <div class="radio"><label><input
+{if condition="$goods_edit.is_hot ==2"}
+                                checked="checked" 
+                                {/if}
+                             class="inverted" name="is_putaway" type="radio" value="2"><span class="text">否</span></label></div>
+                        </div>
+                                                            </div>
+                                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="username" class="col-sm-2 control-label no-padding-right">商品重量</label>
+                                                            <div class="col-sm-6">
+                                                                <input class="form-control" placeholder="" name="goods_weight" type="text" value="{$goods_edit.goods_weight}">
+                                                                 <select name="goods_unit">
+                                 
+                                
+                                    <option  value="1">
+                                         <!-- 
+                                                            为了能更清晰的显示出层次感，我们让每一个文章类型有不同的显示方法，家谱中的老祖中是0，所以前面没有'-' 
+                                                        -->
+                                                   kg   
+                                  
+                                </option>
+                                 
+                                
+                                </select>
+                                                            </div>
+                                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                                        </div>
+                                                       
+                                                        <div class="form-group">
+                                                            <label for="username" class="col-sm-2 control-label no-padding-right">低价促销</label>
+                                                            <div class="col-sm-6">
+                                                                <div class="control-group">
+                            <div class="radio"><label><input 
+{if condition="$goods_edit.is_promote ==1"}
+                                checked="checked" 
+                                {/if}
+                             name="is_promote" type="radio" value="1"><span class="text">是</span></label></div>
+                            <div class="radio"><label><input
+{if condition="$goods_edit.is_promote ==2"}
+                                checked="checked" 
+                                {/if}
+                             class="inverted" name="is_promote" type="radio" value="2"><span class="text">否</span></label></div>
+                        </div>
+                                                            </div>
+                                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                                        </div>
+                                                       
+                                                    </div>
+                                                    <!-- 会员价格 -->
+                                                    <div class="tab-pane" id="FlatTab-2">
+                                                         {volist name="mem_sale" id="sale"}
+                                                          <div class="form-group">
+                                                            <label for="username" class="col-sm-2 control-label no-padding-right">
+                                                                 {if condition="$sale.lv_name ==1"}
+                                
+                                                          注册会员      <input  placeholder="" name="reg_pri" value ="{$mem_sale_detail.reg_pri}" type="text" style="width: 50px;"><p>折</p>
+                                                            
+{elseif condition="$sale.lv_name ==2" /}
+ 
+                                                          白金会员      <input placeholder="" name="oese_pri" value="{$mem_sale_detail.oese_pri}" type="text" style="width: 50px;"><p>折</p>
+                                                            
+{else /}
+
+                                                         钻石会员      <input  placeholder="" name="jewel_pri" value="{$mem_sale_detail.jewel_pri}" type="text" style="width: 50px;"><p>折</p>
+                                                            
+                            
+
+                        {/if}
+                        </label>
+                                                            
+                                                    </div>
+
+                                                    {/volist}
+                                                    
+                                                </div>
+<!-- 商品属性 -->
+                                                    <div class="tab-pane" id="FlatTab-3">
+                                                     <div class="form-group">
+                                                            <label for="username" class="col-sm-2 control-label no-padding-right">商品类型</label>
+                                                            <div class="col-sm-6">
+                                                                <select  name="type_id" disabled>
+                                                                    
+                                {volist name="goods_type_res" id="type"}  
+                                
+                                    <option {if condition="$goods_edit['type_id'] eq $type['id']"} selected="selected" {/if}
+                                      value="{$type.id}">
+                                        
+                                                  {$type.type_name}     
+                                
+                                   
+                                </option>
+                               {/volist}
+                                
+                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div id="first_edit">
+{php} foreach($attr_res as $k=>$v):{/php}
+{php} $attr_vone = explode(',',$v['attr_values']); {/php}
+<!-- 如果是单选属性 -->
+{php} if($v['attr_type'] == 1): {/php} 
+
+{php} foreach($attr_val[$v['id']] as $k0=>$v0): {/php}
+
+
+                                                        <div class="form-group" >
+<label for="username" class="col-sm-2 control-label no-padding-right">{php} echo $v['attr_name']; {/php}</label>
+<div class="col-sm-6">
+    <a href="#" onclick="addrow(this)">{php} if($k0 == 0){echo '[+]';}else{echo '[-]';} {/php}</a>
+<select name="old_goods_attr[{php} echo $v['id']; {/php}][]">
+    
+
+{php} foreach($attr_vone as $k1=>$v1): {/php}
+ <option  {php} if($v1 == $v0['rele_attr_value']){echo 'selected="selected"';} {/php}   value="{php} echo $v1; {/php}">{php} echo $v1; {/php}</option>
+{php} endforeach;{/php}
+ </select>
+ <input class="form-control price" placeholder="该型号价格" name="old_price[{php} echo $v0['id']; {/php}]" value="{php} echo $v0['rele_attr_price']; {/php}" type="text">
+
+    </div>
+                                                        </div>
+                                                        {php} endforeach; {/php}
+                                                        {php} else: {/php}
+
+                                                    {php} $attr_vtwo = explode(',',$v['attr_values']); {/php}
+                                                    {php} foreach($attr_val[$v['id']] as $k0=>$v0): {/php}
+<!-- 如果是唯一属性 -->
+  <div class="form-group" id="{php} echo $v0['id'];  {/php}">
+<label for="username" class="col-sm-2 control-label no-padding-right">{php} echo $v['attr_name']; {/php}</label>
+<div class="col-sm-6">
+    <a href="#" onclick="addrow(this)">{php} if($k0 == 0){echo '[+]';}else{echo '[-]';} {/php}</a>
+<select name="old_goods_attr[{php} echo $v['id']; {/php}][]">
+   
+
+{php} foreach($attr_vtwo as $k1=>$v1): {/php}
+ <option {php} if($v1 == $v0['rele_attr_value']){echo 'selected="selected"';} {/php}  value="{php} echo $v1; {/php}">{php} echo $v1; {/php}</option>
+{php} endforeach;{/php}
+ </select>
+<input class="form-control price"  name="old_price[{php} echo $v0['id']; {/php}]" value="{php} echo $v0['rele_attr_price']; {/php}" type="hidden">
+
+    </div>
+                                                        </div>
+                                                        {php} endforeach; {/php}
+                                                        {php} endif; {/php}
+{php} endforeach;{/php}
+</div>
+                                                        <div id="attr_lst">
+ <!-- 添加商品属性 -->
+
+
+</div>
+                                                    </div>
+
+<!-- 商品相册 -->
+<div class="tab-pane" id="FlatTab-4">
+  
+{volist name="pho_lst" id="lst"}
+
+                                                        <div class="form-group">
+                                                            <label for="username" class="col-sm-2 control-label no-padding-right"></label>
+                                                            <div class="col-sm-6">
+                                                                <a class="goods_img" href="#"  id="{$lst.id}" >[-]</a>
+
+                                                               <input class="file_img" type="file" name="img[]">
+                                                             
+                                                               <img src="__IMAGE__/{$lst.hot_img}" style="height: 40px">
+
+                                                            </div>
+                                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                                        </div>
+                                                        
+{/volist}
+ 
+ <div class="form-group">
+                                                            <label for="username" class="col-sm-2 control-label no-padding-right"></label>
+                                                            <div class="col-sm-6">
+                                                                <a href="#" onclick="addrow(this)">[+]</a>
+                                                               <input type="file" name="img[]">
+                                                            </div>
+                                                            <p class="help-block col-sm-4 red">* 必填</p>
+                                                        </div>
+</div>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-2 col-sm-10">
+                                                    <button type="submit" class="btn btn-default">保存信息</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+        </div>
+    </div>
+    <!--Basic Scripts-->
+    <script src="__ADMIN__/style/jquery_002.js"></script>
+    <script src="__ADMIN__/style/bootstrap.js"></script>
+    <script src="__ADMIN__/style/jquery.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__ADMIN__/style/beyond.js"></script>
+   <script type="text/javascript">
+       $("select[name='goods_cat_id']").change(function(){
+        //获取到当前id
+        var goods_cat_id = $(this).val();
+
+        $.ajax({
+            type: "POST",
+            url: "{:url('goods/ajaxEditBrand')}",
+            data: {goods_cat_id:goods_cat_id},
+            dataType: "json",
+            success:function(data){
+             
+                //定义元素
+var html = '';
+html+='<div class="form-group">';
+ html+='<label for="username" class="col-sm-2 control-label no-padding-right">'+'所属品牌'+'</label>';
+ html+='<div class="col-sm-6">';
+  html+='<select name="brand_id">';
+html+="<option>请选择</option>";
+//遍历品牌所有信息(跟PHP一样)
+
+$(data).each(function(k,v){
+
+     html+='<option value="'+v.brand_id+'">'+v.brand_name+'</option>';
+});
+html+="</select>";
+html+='</div>';
+  html+='</div>';
+   
+   //循环显示品牌名称
+
+   
+   
+       
+  
+   
+    $("#brand_list").html(html);
+
+
+
+  
+    
+    
+
+
+            }
+        });
+       });
+
+
+
+
+//点击减号删除一个表单
+        function minusrow(obj)
+        {
+            //找到a节点上面的<div class="form-group" >
+           var div = $(obj).parent().parent();
+          
+           if($(obj).html() == '[-]')
+           {
+              //移除克隆的元素
+              div.remove();
+
+           }else
+           {
+           //克隆一个完整的div
+           var newdiv = div.clone();
+            //克隆好后把当前的+号改成-号
+           newdiv.find('a').html('[+]');
+           //在当前元素后面显示出来
+           div.after(newdiv);
+           }
+
+          
+
+        }
+
+
+       
+
+   </script>
+
+<script type="text/javascript">
+        
+
+//点击加号克隆一个表单
+        function addrow(obj)
+        {
+            //找到a节点上面的<div class="form-group" >
+           var div = $(obj).parent().parent();
+          
+           if($(obj).html() == '[+]')
+           {
+ //克隆一个完整的div
+           var newdiv = div.clone();
+            //克隆好后把当前的+号改成-号
+           newdiv.find('a').html('[-]');
+           //把old_price和old_goods_attr中的old去掉
+           newdiv.find(':text').attr('name','price[]');
+
+           var sel = newdiv.find('select');
+           var old_name = sel.attr('name');
+           var new_name = old_name.replace('old_','');
+           sel.attr('name',new_name); 
+           //在当前元素后面显示出来
+           div.after(newdiv);
+           }else
+           {
+            
+             var affirm = confirm("您确定要删除该属性吗？");
+       if(affirm){
+        var goods_id = $(".hidd").attr('value');
+        var attr_id = div.attr('id');
+        
+          
+            $.ajax({
+            type: "POST",
+            url: "{:url('goods/ajaxDelAttr')}",
+           data: {
+            attr_id : attr_id,
+            goods_id : goods_id
+           },
+            
+           
+        });
+            //移除克隆的元素
+              div.remove();
+        
+    }
+            
+           }
+
+          
+
+        }
+   </script>
+   <script type="text/javascript">
+    $(function(){
+        $(".goods_img").click(function(){
+    
+var affirm = confirm("您确定要删除该图片吗？");
+       if(affirm){
+        //找到a节点上面的<div class="form-group" >
+           var div = $(this).parent().parent();
+          var pho_id = $(this).attr('id');
+           if($(this).html() == '[-]')
+           {
+            $.ajax({
+            type: "POST",
+            url: "{:url('goods/ajaxEditimg')}",
+           data: {pho_id : pho_id},
+            
+           
+        });
+    
+
+              //移除克隆的元素
+              div.remove();
+
+
+           }else
+           {
+           //克隆一个完整的div
+           var newdiv = div.clone();
+            //克隆好后把当前的+号改成-号
+           newdiv.find('a').html('[+]');
+           //在当前元素后面显示出来
+           div.after(newdiv);
+           }
+       }
+
+
+    
+
+            });
+ $(".file_img").click(function(){
+var notice = confirm('如您需更改图片直接点击[-]而后再按[+]即可!');
+if(notice)
+{
+    return false;
+}else{
+     return false;
+}
+ });
+
+       });
+   </script>
+</body>
+
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html><head>
+        <meta charset="utf-8">
+    <title>b2c商城</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+    
+</head>
+<body>
+    <!-- 头部 -->
+    {include file="public/top" /}
+    <!-- /头部 -->
+    
+    <div class="main-container container-fluid">
+        <div class="page-container">
+                        <!-- Page Sidebar -->
+           {include file="public/left" /}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                                        <li>
+                        <a href="{:url('index/index')}">系统</a>
+                    </li>
+                                        <li class="active">商品库存管理</li>
+                                        </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+<button type="button" tooltip="添加用户" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('goods_type/add')}'"> <i class="fa fa-plus"></i> Add
+</button>
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-body">
+                <form action="{:url('goods/goodsinventory')}" method="post">
+                    <input type="hidden" name="goods_id" value="{$goods.0.goods_id}">
+                <div class="flip-scroll">
+                    <table class="table table-bordered table-hover">
+                        <thead class="">
+                           
+                            <tr>
+                                {volist name="attr" id="attr_name"}
+                                <th class="text-center">{$attr_name.0.attr_name}</th>
+                              {/volist}
+                               <th class="text-center">库存量</th>
+                                <th class="text-center">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          {if condition="$inventory_edit "}
+
+                          {php} foreach($inventory_edit as $k0 => $v0): {/php}
+<tr>
+                                                            {php} foreach($attr as $k => $v): {/php}
+                                <td align="center">
+                                    <select name="goods_attr_id[{$k}][]">
+                                        
+ {php} foreach($v as $k1 => $v1): {/php}
+
+ <!-- 判断该商品属性下面是否有库存信息 -->
+ <!-- 先将字符串打散 -->
+ {php} 
+$arr = explode(',',$v0['goods_attr_id']);
+if(in_array($v1['id'],$arr))
+{
+$select = 'selected="selected"';
+}else
+{
+    $select = '';
+}
+  {/php}
+                                        <option {php} echo $select {/php} value="{$v1.id}">{php} echo $v1['rele_attr_value']; {/php}</option>
+                                         {php} endforeach; {/php}
+                                    </select>
+                                </td>
+                               {php} endforeach; {/php}
+                                <td align="center">
+                                    <input style="width: 130px; text-align: center;"  type="text" value="{php} echo $v0['goods_number'] {/php}" name="goods_number[]">
+                                </td>
+                                <td align="center">
+                                 <a  onClick="addrow(this)" class="btn btn-danger btn-sm shiny " href="#">{php} if($k0==0){echo '[+]';}else{echo '[-]';} {/php}</a>
+                                </td>
+
+                            </tr>
+                                  {php} endforeach; {/php}
+                           {else /}
+                                                        <tr>
+                                                            {php} foreach($attr as $k => $v): {/php}
+                                <td align="center">
+                                    <select name="goods_attr_id[{$k}][]">
+                                        <option value="">请选择</option>
+ {php} foreach($v as $k1 => $v1): {/php}
+                                        <option value="{$v1.id}">{php} echo $v1['rele_attr_value']; {/php}</option>
+                                         {php} endforeach; {/php}
+                                    </select>
+                                </td>
+                               {php} endforeach; {/php}
+                                <td align="center">
+                                    <input style="width: 130px; text-align: center;"  type="text" name="goods_number[]">
+                                </td>
+                                <td align="center">
+                                 <a  onClick="addrow(this)" class="btn btn-danger btn-sm shiny " href="#">[+]</a>
+                                </td>
+
+                            </tr>
+{/if}
+                                       
+                                                    </tbody>
+                    </table>
+                </div>
+                <div style="height: 40px;">
+<div class="form-group">
+                                                <div class="col-sm-offset-2 col-sm-10">
+                                                    <button type="submit" class="btn btn-default">保存信息</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                </div>
+                <div>
+                                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+        </div>  
+    </div>
+
+        <!--Basic Scripts-->
+    <script src="__ADMIN__/style/jquery_002.js"></script>
+    <script src="__ADMIN__/style/bootstrap.js"></script>
+    <script src="__ADMIN__/style/jquery.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__ADMIN__/style/beyond.js"></script>
+    
+<script type="text/javascript">
+    //点击加号克隆一个表单
+        function addrow(obj)
+        {
+
+            //找到a节点上面的<div class="form-group" >
+           var div = $(obj).parent().parent();
+          
+           if($(obj).html() == '[+]')
+           {
+
+ //克隆一个完整的div
+           var newdiv = div.clone();
+            //克隆好后把当前的+号改成-号
+           newdiv.find('a').html('[-]');
+           //在当前元素后面显示出来
+           div.after(newdiv);
+           }else
+           {
+
+            //移除克隆的元素
+              div.remove();
+           }
+
+          
+
+        }
+</script>
+
+</body></html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html><head>
+        <meta charset="utf-8">
+    <title>b2c商城</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+    
+</head>
+<!--Head Ends-->
+<!--Body-->
+
+<body>
+    <div class="login-container animated fadeInDown">
+        <form action="{:url('login/index')}" method="post">
+            <div class="loginbox bg-white">
+                <div class="loginbox-title">SIGN IN</div>
+                <div class="loginbox-textbox">
+                    <input class="form-control" placeholder="username" name="username" type="text" value="{php} echo cookie('username') {/php}">
+                </div>
+                <div class="loginbox-textbox">
+                    <input class="form-control" placeholder="pwd" name="pwd" type="password" >
+                </div>
+                <div class="loginbox-textbox">
+                    <div class="checkbox">
+                        <label>
+                            自动登录:
+                            <input type="checkbox" name="auto" id="check2">
+                            
+                           
+                           
+
+                            <span class="text"></span>
+                        </label>
+                    </div>
+                </div>
+                 <div class="loginbox-textbox">
+                    <input class="form-control" style="width:100px;float:left;" name="code" type="text">
+                    <img src="{:captcha_src()}" onclick="this.src='{:captcha_src()}?'+Math.random();" style=" width:120px; height:32px; float:left; cursor:pointer; alt="captcha" />
+                </div>
+                <div class="loginbox-submit">
+                    <input class="btn btn-primary btn-block" value="Login" type="submit">
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--Basic Scripts-->
+    <script src="__ADMIN__/style/jquery.js"></script>
+    <script src="__ADMIN__/style/bootstrap.js"></script>
+    <script src="__ADMIN__/style/jquery_002.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__ADMIN__/style/beyond.js"></script>
+    
+</body>
+<!--Body Ends-->
+
+</html>

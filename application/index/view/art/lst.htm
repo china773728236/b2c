@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html><head>
+	    <meta charset="utf-8">
+    <title>b2c商城</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+    
+</head>
+<body>
+	<!-- 头部 -->
+	
+    {include file="public/top" /}
+
+	<!-- /头部 -->
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			            <!-- Page Sidebar -->
+            {include file="public/left" /}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                                        <li>
+                        <a href="{:url('index/index')}">系统</a>
+                    </li>
+                                        <li class="active">文章列表</li>
+                                        </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+<button type="button" tooltip="添加文章" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('art/add')}'"> <i class="fa fa-plus"></i> Add
+</button>
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="flip-scroll">
+                    <table class="table table-bordered table-hover">
+                        <thead class="">
+                            <tr>
+                                <th class="text-center">文章标题</th>
+                                <th class="text-center">文章所属栏目</th>
+                                <th class="text-center">文章作者</th>
+                                <th class="text-center">文章缩略图</th>
+                                 <th class="text-center">文章关键词</th>
+                                <th class="text-center">文章描述</th>
+                                <th class="text-center">邮箱</th>
+                                <th class="text-center">文章链接</th>
+                                 <th class="text-center">文章发布</th>
+                                <th class="text-center">导航栏</th>
+                                <th class="text-center">更新时间</th>
+                               
+                                <th class="text-center">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           {volist name="art" id="art_res"}
+                                                        <tr>
+                                <td align="center">
+                                   {$art_res.art_tit}
+                            </td>
+                                <td align="center">
+                               {$art_res.cat_name}
+                            </td>
+                            <td align="center">
+                                   {$art_res.art_author}
+                            </td>
+                            <td align="center">
+                                  
+                                   
+                                  {if condition="$art_res['art_img'] neq '' "}
+                                 <img src="{$art_res.art_img}" height="40">
+                            {else /}
+暂无图片
+                        {/if}
+                            </td>
+                            <td align="center">
+                               {$art_res.art_keywords}
+                            </td>
+                            <td align="center">
+                             <!-- 写一个函数截取字符串 -->
+                                {:cut_str($art_res.art_desc,5)}
+                            </td>
+                            <td align="center">
+                               {$art_res.art_email}
+                            </td>
+                            <td align="center">
+                               {$art_res.art_url}
+                            </td>
+                            <td align="center">
+                               {if condition="$art_res.art_status ==1"}
+                                已发布
+                            {else /}
+未发布
+                        {/if}
+                            </td>
+                            <td align="center">
+                                {if condition="$art_res.art_nav ==1"}
+                                使用
+                            {else /}
+未使用
+                        {/if}
+                            </td>
+                            <td align="center">
+                               {$art_res.art_time}
+                            </td>
+
+                                <td align="center">
+                                    <a href="{:url('art/edit',array('art_id'=>$art_res['art_id']))}" class="btn btn-primary btn-sm shiny">
+                                        <i class="fa fa-edit"></i> 编辑
+                                    </a>
+                                    <a href="#" onClick="warning('确实要删除吗', '{:url('art/del',array('art_id'=>$art_res['art_id']))}')" class="btn btn-danger btn-sm shiny">
+                                        <i class="fa fa-trash-o"></i> 删除
+                                    </a>
+                                </td>
+                            </tr>
+                                 {/volist}          
+                                                    </tbody>
+                    </table>
+                </div>
+                <div>
+                	                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+		</div>	
+	</div>
+
+	    <!--Basic Scripts-->
+    <script src="__ADMIN__/style/jquery_002.js"></script>
+    <script src="__ADMIN__/style/bootstrap.js"></script>
+    <script src="__ADMIN__/style/jquery.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__ADMIN__/style/beyond.js"></script>
+    
+
+
+</body></html>

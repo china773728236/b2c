@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>ThinkPHP5.0</title>
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- 头部 -->
+    {include file="public/top" /}
+    <!-- /头部 -->
+    <div class="main-container container-fluid">
+        <div class="page-container">
+            <!-- Page Sidebar -->
+            {include file="public/left" /}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="{:url('index/index')}">系统</a>
+                        </li>
+                        <li class="active">网站设置</li>
+                    </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+                <!-- Page Body -->
+                <div class="page-body">
+                    <button type="button" tooltip="添加配置" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('conf/add')}'"> <i class="fa fa-plus"></i> 添加配置
+                    </button>
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-xs-12">
+                            <div class="widget">
+                                <!-- 配置列表开始 -->
+                                <div class="widget-body">
+                                    <div class="widget-main ">
+                                        <div class="tabbable">
+                                            <ul class="nav nav-tabs  tabs-flat">
+                                                <li class="active "><a data-toggle="tab" href="#FlatTab-1">商品配置</a></li>
+                                                <li class=""><a data-toggle="tab" href="#FlatTab-2">店铺配置</a></li>
+                                                
+                                            </ul>
+                                            <div class="tab-content  tabs-flat">
+                                                <div class="active tab-pane" id="FlatTab-1">
+                                                     <form class="form-horizontal" action="{:url('conf/test')}" method="post">
+                                            <table class="table table-bordered table-hover">
+                                                 {volist name="conf_shangpin" id="shangpin"}
+                                                <tr>
+                                                    <td align="left">{$shangpin.conf_cnname}</td>
+                                                     <td align="left">
+                                            {if condition="$shangpin['conf_type'] eq 1"}
+                                             <input name="{$shangpin.conf_enname}" type="text"  align="left" class="form-control" style="width:620px;" value="{$shangpin.conf_value}">
+                                             {elseif condition="$shangpin['conf_type'] eq 2"}
+                                             <textarea name="{$shangpin.conf_enname}" class="form-control" style="width:620px;">
+                                                {$shangpin.conf_value}
+                                            </textarea>
+                                            <!-- 把{是，否}由字符串转换为数组 -->
+                                           {php}elseif($shangpin['conf_type']==3):
+                                             if($shangpin['conf_optional_value'])
+                                             {
+                                               $arr = explode(',', $shangpin['conf_optional_value']);
+                                             }
+                                             foreach($arr as $k => $v):
+                                           {/php}
+                                              <label style="margin-right:15px;">
+                                        <input {php} if($shangpin['conf_value']==$v){ echo "checked='checked'";}{/php} name="{php} echo $shangpin['conf_enname'];{/php}" value="{php} echo $v;{/php}" type="radio">
+                                        <span class="text">{php} echo $v;{/php}</span>
+                                        </label>
+                                           {php} endforeach; {/php}
+                                            {php}elseif($shangpin['conf_type']==4):
+                                             if($shangpin['conf_optional_value'])
+                                             {
+                                               $arr = explode(',', $shangpin['conf_optional_value']);
+                                             }
+                                             foreach($arr as $k1 => $v1):
+                                           {/php}
+                                            <label>
+                                                <input {php} if($shangpin['conf_value']==$v1){echo "checked='checked'";} {/php} name="{php} echo $shangpin['conf_enname'];{/php}[]" class="colored-success" value="{php} echo $v1;{/php}" type="checkbox">
+                                                <span class="text">{php} echo $v1;{/php}</span>
+                                            </label>
+{php} endforeach; {/php}
+
+
+                                           <!-- 把{是，否}由字符串转换为数组 -->
+                                           {php}elseif($shangpin['conf_type']==5):
+                                             if($shangpin['conf_optional_value'])
+                                             {
+                                               $arrselect = explode(',', $shangpin['conf_optional_value']);
+                                             }
+                                             
+                                           {/php}
+                                               <select name="{php} echo $shangpin['conf_enname'];{/php}">
+                                        {php}foreach($arrselect as $k2 => $v2):{/php}
+                                            <option {php} if($shangpin['conf_value']==$v2){echo 'selected="selected"';} {/php} value="{php} echo $v2;{/php}">{php} echo $v2;{/php}</option>
+                                        }
+                                        {php} endforeach; {/php}
+                                        </select>
+                                           
+
+                                            {/if}
+                                        
+                                        </td>
+                                                </tr>
+                                                {/volist}
+                                                </tbody>
+                                            </table>
+                                            <div align="right"><input class="btn btn-primary btn-sm shiny" style="margin-right:52%; margin-top:10px;" type="submit" value="提交修改"></div>
+
+
+
+
+
+
+
+
+                                        </form>
+                                                </div>
+                                                <div class="tab-pane" id="FlatTab-2">
+                                                     <form class="form-horizontal" action="{:url('conf/test')}" method="post">
+                                            <table class="table table-bordered table-hover">
+                                                {volist name="conf_dianpu" id="dianpu"}
+                                                <tr>
+                                                    <td align="left">{$dianpu.conf_cnname}</td>
+                                                     <td align="left">
+                                            {if condition="$dianpu['conf_type'] eq 1"}
+                                             <input name="{$dianpu.conf_enname}" type="text"  align="left" class="form-control" style="width:620px;" value="{$dianpu.conf_value}">
+                                             {elseif condition="$dianpu['conf_type'] eq 2"}
+                                             <textarea name="{$dianpu.conf_enname}" class="form-control" style="width:620px;">
+                                                {$dianpu.conf_value}
+                                            </textarea>
+                                            <!-- 把{是，否}由字符串转换为数组 -->
+                                           {php}elseif($dianpu['conf_type']==3):
+                                             if($dianpu['conf_optional_value'])
+                                             {
+                                               $arr = explode(',', $dianpu['conf_optional_value']);
+                                             }
+                                             foreach($arr as $k => $v):
+                                           {/php}
+                                              <label style="margin-right:15px;">
+                                        <input {php} if( $dianpu['conf_value']==$v){ echo "checked='checked'";}{/php} name="{php} echo $dianpu['conf_enname'];{/php}" value="{php} echo $v;{/php}" type="radio">
+                                        <span class="text">{php} echo $v;{/php}</span>
+                                        </label>
+                                           {php} endforeach; {/php}
+                                            {php}elseif($dianpu['conf_type']==4):
+                                             if($dianpu['conf_optional_value'])
+                                             {
+                                               $arr = explode(',', $dianpu['conf_optional_value']);
+                                             }
+                                             foreach($arrbox as $k1 => $v1):
+                                           {/php}
+                                            <label>
+                                                <input {php} if($dianpu['conf_value']==$v1){echo "checked='checked'";} {/php} name="{php} echo $dianpu['conf_enname'];{/php}" class="colored-success" value="{php} echo $v1;{/php}" type="checkbox">
+                                                <span class="text">{php} echo $v1;{/php}</span>
+                                            </label>
+{php} endforeach; {/php}
+
+
+                                           <!-- 把{是，否}由字符串转换为数组 -->
+                                           {php}elseif($dianpu['conf_type']==5):
+                                             if($dianpu['conf_optional_value'])
+                                             {
+                                               $arrselect = explode(',', $dianpu['conf_optional_value']);
+                                             }
+                                             
+                                           {/php}
+                                               <select name="{php} echo $dianpu['conf_enname'];{/php}">
+                                        {php}foreach($arrselect as $k2 => $v2):{/php}
+                                            <option {php} if($dianpu['conf_value']==$v2){echo 'selected="selected"';} {/php} value="{php} echo $v2;{/php}">{php} echo $v2;{/php}</option>
+                                        }
+                                        {php} endforeach; {/php}
+                                        </select>
+                                           
+
+                                            {/if}
+                                        
+                                        </td>
+                                                </tr>
+                                                {/volist}
+                                                </tbody>
+                                            </table>
+                                            <div align="right"><input class="btn btn-primary btn-sm shiny" style="margin-right:52%; margin-top:10px;" type="submit" value="提交修改"></div>
+                                        </form>
+                                                </div>
+                                             
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 配置列表结束 -->
+                               <!--  <div class="widget-body">
+                                    <div class="flip-scroll">
+                                        <form class="form-horizontal" action="{:url('conf/test')}" method="post">
+                                            <table class="table table-bordered table-hover">
+                                                <tr>
+                                                    <td align="left">ok</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div align="right"><input class="btn btn-primary btn-sm shiny" style="margin-right:52%; margin-top:10px;" type="submit" value="提交修改"></div>
+                                        </form>
+                                    </div>
+                                </div> -->
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Page Body -->
+        </div>
+        <!-- /Page Content -->
+    </div>
+    </div>
+    <!--Basic Scripts-->
+    <script src="__ADMIN__/style/jquery_002.js"></script>
+    <script src="__ADMIN__/style/bootstrap.js"></script>
+    <script src="__ADMIN__/style/jquery.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__ADMIN__/style/beyond.js"></script>
+</body>
+
+</html>
