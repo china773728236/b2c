@@ -20,7 +20,10 @@ class Art extends Init
     public function lst()
     {
         //db(当前表)->alias(当前表的别名)->field(当前表的字段，另一张表的字段)->join('另一张表 表的别名'，当前表与另一张表相同的字段)->select();
-        $res = db('art')->alias('a')->field('a.art_id,art_tit,art_img,art_author,art_keywords,art_desc,art_email,art_url,art_status,art_nav,art_time,b.cat_name')->join('b2c_cat b','a.cat_id=b.cat_id')->select();
+        $res = db('art')->alias('a')
+            ->field('a.art_id,art_tit,art_img,art_author,art_keywords,art_desc,art_email,art_url,art_status,art_nav,art_time,b.cat_name')
+            ->join('b2c_cat b','a.cat_id=b.cat_id')
+            ->select();
         //dump($res);die;
         $this->assign('art',$res);
         return view();

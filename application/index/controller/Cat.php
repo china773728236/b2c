@@ -45,6 +45,8 @@ class Cat extends Init
             {
                 //如果没有值说明管理员不想展示该品牌
                 $data['cat_nav'] = (string)0;//将值转换为字符串然后存入数据库中(string)
+                //把栏目类型变为0
+                $data['cat_type'] = (string)0;
             }
             $res = Db::name('cat')->insert($data);
 
