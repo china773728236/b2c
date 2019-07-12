@@ -9,18 +9,18 @@
         <li>周一至周日：09:00-22:00</li>
       </ol>
     </div>
-     
-     {volist name="help" id="he"}
+  
+        {volist name="help" id="he"}
         <div class="f_list">
       <h4>{$he.cat_name}</h4>
       <ul>
-                <li><a target="_blank" href="/mbmeilishuo/article.php?id=9" title="售后流程">{$he.art_tit}</a></li>
-               
+        {volist name="he.art" id="art"}
+                <li><a target="_blank" href="/mbmeilishuo/article.php?id=9" title="售后流程">{$art.art_tit}</a></li>
+               {/volist}
               </ul>
     </div>
      
      {/volist}
-       
     <div class="blank"></div>
      
        
